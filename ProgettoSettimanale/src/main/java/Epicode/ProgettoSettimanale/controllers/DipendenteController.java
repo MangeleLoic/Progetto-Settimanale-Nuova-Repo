@@ -21,7 +21,7 @@ public class DipendenteController {
 
 
     @GetMapping("/genera")
-    public String populateDipendenti() {
+    public String generaDipendenti() {
         dipendenteService.saveMany();
         return "Dipendenti generati con successo";
     }
@@ -29,7 +29,7 @@ public class DipendenteController {
     @GetMapping
     public Page<Dipendente> findAllDipendenti(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size,
                                               @RequestParam(defaultValue = "id") String sortBy) {
-        
+
         return this.dipendenteService.findAllDipendenti(page, size, sortBy);
     }
 
@@ -58,5 +58,11 @@ public class DipendenteController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void findByIdAndDelete(@PathVariable Long dipendenteId) {
         this.dipendenteService.findByIdAndDelete(dipendenteId);
+    }
+
+    @DeleteMapping("/deleteAll")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAllDipendenti() {
+        dipendenteService.deleteAllDipendenti();
     }
 }

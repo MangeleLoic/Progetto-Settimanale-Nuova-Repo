@@ -88,5 +88,9 @@ public class DipendenteService {
         this.dipendenteRepository.delete(found);
     }
 
+    public void deleteAllDipendenti() {
+        dipendenteRepository.deleteAll();
+    }
+
 
 }

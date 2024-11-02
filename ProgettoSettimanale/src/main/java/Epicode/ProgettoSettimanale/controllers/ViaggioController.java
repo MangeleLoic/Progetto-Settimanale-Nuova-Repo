@@ -54,4 +54,10 @@ public class ViaggioController {
         viaggioService.findViaggioByIdAndDelete(viaggioId);
     }
 
+    @DeleteMapping("/deleteAll")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAllViaggi() {
+        viaggioService.deleteAllViaggi();
+    }
+
 }

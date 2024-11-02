@@ -52,4 +52,8 @@ public class ViaggioService {
         }
         viaggioRepository.deleteById(viaggioId);
     }
+
+    public void deleteAllViaggi() {
+        viaggioRepository.deleteAll();
+    }
 }
