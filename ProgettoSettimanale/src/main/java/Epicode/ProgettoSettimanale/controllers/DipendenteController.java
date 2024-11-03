@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.stream.Collectors;
 
@@ -65,4 +66,10 @@ public class DipendenteController {
     public void deleteAllDipendenti() {
         dipendenteService.deleteAllDipendenti();
     }
+
+    @PostMapping("/dipendenti/{id}/upload-avatar")
+    public String uploadAvatar(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+        return dipendenteService.uploadAvatar(id, file);
+    }
+
 }

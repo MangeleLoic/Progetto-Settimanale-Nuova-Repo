@@ -21,4 +21,5 @@ public class Dipendente {
     @Column(name = "username", unique = true, nullable = false)
     private String username;
     private String email;
+    private String immagineProfilo;
 }

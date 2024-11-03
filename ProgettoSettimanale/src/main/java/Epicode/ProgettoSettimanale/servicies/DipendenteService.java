@@ -5,6 +5,8 @@ import Epicode.ProgettoSettimanale.exceptions.BadRequestException;
 import Epicode.ProgettoSettimanale.exceptions.DipendenteNotFoundException;
 import Epicode.ProgettoSettimanale.payloads.DipendenteDTO;
 import Epicode.ProgettoSettimanale.repositories.DipendenteRepository;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import com.github.javafaker.Faker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,7 +14,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Locale;
 
 @Service
@@ -20,6 +24,9 @@ public class DipendenteService {
 
     @Autowired
     private DipendenteRepository dipendenteRepository;
+
+    @Autowired
+    private Cloudinary cloudinary;
 
     public Dipendente saveDipendente(DipendenteDTO body) {
         this.dipendenteRepository.findByEmail(body.email()).ifPresent(
@@ -92,5 +99,18 @@ public class DipendenteService {
         dipendenteRepository.deleteAll();
     }
 
+    public String uploadAvatar(Long dipendenteId, MultipartFile file) {
+
+        Dipendente dipendente = findById(dipendenteId);
+
+        try {
+            String url = (String) cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap()).get("url");
+
+            dipendenteRepository.save(dipendente);
+            return url;
+        } catch (IOException e) {
+            throw new BadRequestException("Ci sono stati problemi con l'upload del file!");
+        }
+    }
 
 }
