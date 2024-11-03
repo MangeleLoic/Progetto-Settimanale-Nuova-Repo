@@ -7,5 +7,5 @@ import java.time.LocalDate;
 import java.util.Optional;
 
 public interface PrenotazioneRepository extends JpaRepository<Prenotazione, Long> {
-    Optional<Prenotazione> findByDipendenteIdAndDataPrenotazione(Long dipendenteId, LocalDate dataPrenotazione);
+    Optional<Prenotazione> findByDipendenteIdAndDataViaggio(Long dipendenteId, LocalDate dataPrenotazione);
 }

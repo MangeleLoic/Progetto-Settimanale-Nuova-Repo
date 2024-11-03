@@ -26,10 +26,10 @@ public class Prenotazione {
     private LocalDate dataPrenotazione;
     private String note;
     @Column(unique = true)
-    private LocalDate dataDefinitiva;
+    private LocalDate dataViaggio;
 
     public void setDataPrenotazione(LocalDate dataPrenotazione) {
         this.dataPrenotazione = dataPrenotazione;
-        this.dataDefinitiva = dataPrenotazione;
+        this.dataViaggio = dataPrenotazione;
     }
 }

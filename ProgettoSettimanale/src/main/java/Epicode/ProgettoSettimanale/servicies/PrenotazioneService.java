@@ -31,21 +31,27 @@ public class PrenotazioneService {
     private ViaggioRepository viaggioRepository;
 
     @Transactional
-    public Prenotazione nuovaPrenotazione(Long dipendenteId, Long viaggioId, LocalDate dataPrenotazione, String note) throws Exception {
-        Optional<Prenotazione> prenotazineGiaPresente = prenotazioneRepository.findByDipendenteIdAndDataPrenotazione(dipendenteId, dataPrenotazione);
+    public Prenotazione nuovaPrenotazione(Long dipendenteId, Long viaggioId, LocalDate dataViaggio, String note) throws Exception {
+        Optional<Prenotazione> prenotazioneGiaPresente = prenotazioneRepository.findByDipendenteIdAndDataViaggio(dipendenteId, dataViaggio);
 
-        if (prenotazineGiaPresente.isPresent()) {
+        if (prenotazioneGiaPresente.isPresent()) {
             throw new PrenotazioneGiaPresente();
         }
 
         Viaggio viaggio = viaggioRepository.findById(viaggioId)
                 .orElseThrow(() -> new ViaggioNotFoundException());
 
+        if (!viaggio.getDataViaggio().isEqual(dataViaggio)) {
+            throw new ViaggioNotFoundException();
+        }
+
         Prenotazione prenotazione = new Prenotazione();
-        prenotazione.setDipendente(dipendenteRepository.findById(dipendenteId).orElseThrow(() -> new DipendenteNotFoundException()));
-        prenotazione.setViaggio(viaggioRepository.findById(viaggioId).orElseThrow(() -> new ViaggioNotFoundException()));
-        prenotazione.setDataPrenotazione(dataPrenotazione);
-        prenotazione.setNote(note);
+        prenotazione.setDipendente(dipendenteRepository.findById(dipendenteId)
+                .orElseThrow(() -> new DipendenteNotFoundException()));
+        prenotazione.setViaggio(viaggio);
+        prenotazione.setDataPrenotazione(dataViaggio);
+        prenotazione.setDataViaggio(dataViaggio);
+
         return prenotazioneRepository.save(prenotazione);
 
     }

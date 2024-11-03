@@ -25,7 +25,7 @@ public class PrenotazioneController {
         return this.prenotazioneService.findAllPrenotazioni(page, size, sortBy);
     }
 
-    @GetMapping("/{prenotazioniId}")
+    @GetMapping("/{prenotazioneId}")
     public Optional<Prenotazione> findById(@PathVariable Long prenotazioneId) {
         return prenotazioneService.findPrenotazioneById(prenotazioneId);
     }
@@ -41,12 +41,12 @@ public class PrenotazioneController {
         return prenotazioneService.nuovaPrenotazione(dipendenteId, viaggioId, dataPrenotazione, note);
     }
 
-    @PutMapping("/{prenotazioniId}")
+    @PutMapping("/{prenotazioneId}")
     public Prenotazione findPrenotazioneByIdAndUpdate(@PathVariable Long prenotazioneId, @RequestBody PrenotazioneDTO body) {
         return this.prenotazioneService.findPrenotazioneByIdAndUpdate(prenotazioneId, body);
     }
 
-    @DeleteMapping("/{prenotazioniId}")
+    @DeleteMapping("/{prenotazioneId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void findByIdAndDelete(@PathVariable Long prenotazioneId) {
         prenotazioneService.findPrenotazioneByIdAndDelete(prenotazioneId);
