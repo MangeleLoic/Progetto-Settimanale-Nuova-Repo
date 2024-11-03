@@ -71,6 +71,6 @@ public class DipendenteController {
     public String uploadAvatar(@PathVariable Long id, @RequestParam("img") MultipartFile file) {
         return dipendenteService.uploadAvatar(id, file);
     }
-    //questa è solo una prova
+
 
 }
