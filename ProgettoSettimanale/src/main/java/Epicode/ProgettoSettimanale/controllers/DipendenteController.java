@@ -67,8 +67,8 @@ public class DipendenteController {
         dipendenteService.deleteAllDipendenti();
     }
 
-    @PostMapping("/dipendenti/{id}/upload-avatar")
-    public String uploadAvatar(@PathVariable Long id, @RequestParam("file") MultipartFile file) {
+    @PostMapping("/{id}/upload-avatar")
+    public String uploadAvatar(@PathVariable Long id, @RequestParam("img") MultipartFile file) {
         return dipendenteService.uploadAvatar(id, file);
     }
 
