@@ -8,6 +8,8 @@ import Epicode.ProgettoSettimanale.repositories.DipendenteRepository;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
 import com.github.javafaker.Faker;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -113,5 +115,8 @@ public class DipendenteService {
         }
     }
 
+
+    public Dipendente findByEmail(@NotEmpty(message = "L'email è un campo obbligatorio!") @Email(message = "L'email inserita non è un'email valida") String email) {
+    }
 
 }
